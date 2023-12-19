@@ -6,10 +6,16 @@ package model
 
 const TableNameUser = "users"
 
+// User mapped from table <users>
 type User struct {
-	ID   uint 
-	Name string
+	ID     int32  `gorm:"column:id;type:int;primaryKey" json:"id"`
+	Name   string `gorm:"column:name;type:varchar(255)" json:"name"`
+	Age    int32  `gorm:"column:age;type:int" json:"age"`
+	Gender bool   `gorm:"column:gender;type:tinyint(1)" json:"gender"`
+	Articles []Article 
+	UserInfo UserInfo
 }
+
 // TableName User's table name
 func (*User) TableName() string {
 	return TableNameUser
