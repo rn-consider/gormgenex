@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: cmysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - /home/genlearn/mysql/conf:/etc/mysql/conf.d
+      - /home/genlearn/mysql/data:/var/lib/mysql
+      - /home/genlearn/mysql/logs:/var/log/mysql
+      - /etc/localtime:/etc/localtime:ro
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # 将 init.sql 挂载到初始化目录
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: genlearn 
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_general_ci
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -proot"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
