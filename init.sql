@@ -9,7 +9,6 @@ CREATE TABLE user_infos (
     user_id INT,
     id INT PRIMARY KEY,
     addr VARCHAR(255),
-    like VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
@@ -25,7 +24,7 @@ CREATE TABLE tags (
     name VARCHAR(255)
 );
 
-CREATE TABLE article_tags (
+CREATE TABLE articles_tags (
     article_id INT,
     tag_id INT,
     PRIMARY KEY (article_id, tag_id),
